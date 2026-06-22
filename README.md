@@ -16,7 +16,7 @@
 | 개발 기간 | 2026.04.22 ~ 2026.05.03 |
 | 팀 구성 | 5인 팀 프로젝트 (팀장 1 · 부팀장 1 · 팀원 3) |
 | 담당 역할 | 부팀장 · Application Engineer (PC 통합 허브 및 의사결정 엔진) |
-| 시연 영상 | 준비 중 |
+| 시연 영상 | [YouTube](https://youtu.be/KO_Lyd2x24o) |
 
 ## 🎯 프로젝트 개요
 컨베이어 벨트 위 전자 부품을 AI 비전으로 자동 검사·분류하고, 모든 생산 데이터를 실시간으로 기록·관리하는 통합 제조 검사 시스템입니다. 부품을 YOLO + OpenCV로 검사해 **정상(PASS) / 불량(DEFECT) / 판정불가(HOLD)** 로 판단하고, 결과에 따라 서보 모터로 부품을 물리적으로 자동 분류합니다. 검사 결과·환경 데이터·이상 이벤트는 실시간 DB에 기록되고 대시보드로 모니터링됩니다.
@@ -152,5 +152,6 @@ builder = builder
 | ![화면4](images/04.png) | Grafana 환경 텔레메트리 모니터링 (온도·습도·가스 그래프) |
 
 ## 🎬 시연 영상
-[![시연 영상](images/thumbnail.png)](여기에-유튜브-링크)
-> 시연 영상은 준비 중입니다.
+[![시연 영상](https://img.youtube.com/vi/KO_Lyd2x24o/0.jpg)](https://youtu.be/KO_Lyd2x24o)
+
+▶️ https://youtu.be/KO_Lyd2x24o

@@ -142,14 +142,13 @@ builder = builder
 > **Solution:** 브로커에 영속 세션(`CleanSession=false`)을 적용하고, 비정상 종료를 감지하는 LWT를 설정했습니다. 재연결 시 브로커가 누락 메시지를 다시 전달해 데이터 손실이 없도록 하고, 끊김 자체는 LWT로 즉시 인지할 수 있게 했습니다.
 
 ## 📸 스크린샷
-> 발표 자료(PPT) 화면을 `images/` 폴더에 추가한 뒤 아래 경로를 맞춰주세요.
+> 발표 자료 기준 시스템 흐름도(다이어그램)
 
 | 화면 | 설명 |
 |------|------|
-| ![화면1](images/01.png) | C# WinForms 통합 허브 메인 대시보드 (제어 패널·센서 스트립·생산 통계·Serial 모니터) |
-| ![화면2](images/02.png) | C# WinForm 측 통합 허브 구성도 — MQTT / USB Serial / HTTP Client / MySQL Writer 4채널 |
-| ![화면3](images/03.png) | ProductDecisionQueue 핵심 코드 (ConcurrentQueue + 깊이 상한 제어) |
-| ![화면4](images/04.png) | Grafana 환경 텔레메트리 모니터링 (온도·습도·가스 그래프) |
+| ![화면1](images/01.png) | 하드웨어 레이어 흐름도 — Arduino MEGA 2560 / Raspberry Pi 5 데이터 흐름 (IR 센서 감지 → systemd 관리 → 부품 분류) |
+| ![화면2](images/02.png) | 중간 통신 레이어 다이어그램 — Mosquitto MQTT Broker와 Flask 관리 대시보드 간 데이터 흐름 |
+| ![화면3](images/03.png) | 애플리케이션 & YOLO 검출 영역 흐름도 — C# WinForms 허브 ~ YOLO 서버 추론 처리 흐름 |
 
 ## 🎬 시연 영상
 [![시연 영상](https://img.youtube.com/vi/KO_Lyd2x24o/0.jpg)](https://youtu.be/KO_Lyd2x24o)

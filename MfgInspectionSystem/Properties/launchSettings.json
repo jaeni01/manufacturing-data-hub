@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "dev (1883 no-TLS)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MFG_ENV": "dev"
+      }
+    },
+    "prod (8883 TLS)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MFG_ENV": "prod"
+      }
+    }
+  }
+}

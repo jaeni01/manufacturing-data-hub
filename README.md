@@ -250,14 +250,26 @@ var builder = new MqttClientOptionsBuilder()
 > **Challenge:** 처리량이 검사 속도를 못 따라가는 상황을 사후 로그로만 알 수 있어 실시간 부하 파악이 어려웠습니다.
 > **Solution:** `prometheus-net`으로 `/metrics`(:9091) 엔드포인트를 노출하고, `mfg_decision_queue_depth`(gauge) · `mfg_system_state` · `mfg_inspections_total` · `mfg_yolo_inference_seconds`(histogram) 등을 Grafana에서 scrape하도록 구성했습니다. 큐 깊이 gauge는 `Enqueue/Dequeue` 시점마다 갱신해 backpressure 임박을 시각적으로 감지할 수 있게 했습니다. (`Observability/MetricsServer.cs`)
 
-## 📸 스크린샷
-> 발표 자료 기준 시스템 흐름도(다이어그램)
+## 📸 프로젝트 흐름 및 이미지 기록
+> 설비 레이어 → 통신 레이어 → C# 운영 허브 → YOLO 검출 → 판정/검증 큐 순서로 배치했습니다. 채용 담당자가 README만 봐도 "센서값을 받는 프로그램"이 아니라 생산·검사 데이터를 통합한 PC 허브였다는 점이 보이도록 구성했습니다.
+
+### Architecture / Data Flow
 
 | 화면 | 설명 |
 |------|------|
-| ![화면1](images/01.png) | 하드웨어 레이어 흐름도 — Arduino MEGA 2560 / Raspberry Pi 5 데이터 흐름 (IR 센서 감지 → systemd 관리 → 부품 분류) |
-| ![화면2](images/02.png) | 중간 통신 레이어 다이어그램 — Mosquitto MQTT Broker와 Flask 관리 대시보드 간 데이터 흐름 |
-| ![화면3](images/03.png) | 애플리케이션 & YOLO 검출 영역 흐름도 — C# WinForms 허브 ~ YOLO 서버 추론 처리 흐름 |
+| ![하드웨어 레이어](images/01.png) | 하드웨어 레이어 흐름도 — Arduino MEGA 2560 / Raspberry Pi 5 데이터 흐름, IR 센서 감지, systemd 관리, 부품 분류 신호 흐름 |
+| ![통신 레이어](images/02.png) | 중간 통신 레이어 다이어그램 — Mosquitto MQTT Broker와 Flask 관리 대시보드 사이의 데이터 흐름 |
+| ![애플리케이션 및 YOLO 흐름](images/03.png) | 애플리케이션 & YOLO 검출 영역 흐름도 — C# WinForms 허브에서 YOLO 서버 추론 결과를 받아 판정/검증으로 넘기는 구조 |
+
+### Operation / Inspection Evidence
+
+| 화면 | 설명 |
+|------|------|
+| ![C# HMI dashboard](images/04_hmi-dashboard.png) | C# 통합 운영 허브 — 시작/일시정지/재개/비상정지, MQTT·Arduino·RPi·YOLO·MySQL 상태, PASS/DEFECT/HOLD 카운트, 처리 큐와 이벤트 로그를 한 화면에서 확인 |
+| ![WinForms console slide](images/05_winforms-console-slide.png) | 운영 콘솔 구성 설명 — 제어 패널, 센서 스트림, 생산 통계, Serial/MQTT Monitor를 분리해 운영자가 원인을 추적하기 쉽게 설계 |
+| ![YOLO realtime test](images/06_realtime-yolo-test.jpg) | 실시간 YOLO 테스트 장면 — 전자부품 검출 결과를 HMI 판정 엔진과 연결하기 전 모델 출력과 클래스 라벨을 검증 |
+| ![Line parts closeup](images/07_line-parts-closeup.jpg) | 실제 부품 투입 조건 — 부품 간 간격, 회전, 핀 방향, 카메라 설치 위치가 판정 로직에 영향을 주는 테스트 환경 |
+| ![Vision testbench](images/08_vision-testbench.jpg) | 비전 검사 테스트베드 — 카메라, 조명, 컨베이어/투입부, PC 추론 환경을 연결해 통합 동작을 확인한 장면 |
 
 ## 🎬 시연 영상
 [![시연 영상](https://img.youtube.com/vi/KO_Lyd2x24o/0.jpg)](https://youtu.be/KO_Lyd2x24o)
